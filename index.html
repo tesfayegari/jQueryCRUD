@@ -2,19 +2,21 @@
 <html>
 
 <head>
-  <script src="assets/js/jquery-1.12.4.js"></script>
-  <script src="assets/js/jquery.dataTables.min.js">
+  <script src="/sites/demo/SiteAssets/jQueryCRUD/assets/js/jquery-1.12.4.js"></script>
+  <script src="/sites/demo/SiteAssets/jQueryCRUD/assets/js/jquery.dataTables.min.js">
   </script>
-  <script src="assets/js/dataTables.bootstrap.min.js">
+  <script src="/sites/demo/SiteAssets/jQueryCRUD/assets/js/dataTables.bootstrap.min.js">
   </script>
-  <script src="assets/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="assets/css/dataTables.bootstrap.min.css" />
+  <script src="/sites/demo/SiteAssets/jQueryCRUD/assets/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css"
+    href="/sites/demo/SiteAssets/jQueryCRUD/assets/css/dataTables.bootstrap.min.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js" type="text/javascript">
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js" type="text/javascript"> -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   </script>
-  <script src="assets/js/crud-script.js"></script>
-  <link rel="stylesheet" href="assets/css/Style.css" type="text/css" />
+  <script src="/sites/demo/SiteAssets/jQueryCRUD/assets/js/crud-script.js"></script>
+  <link rel="stylesheet" href="/sites/demo/SiteAssets/jQueryCRUD/assets/css/Style.css" type="text/css" />
 </head>
 
 <body>
@@ -47,6 +49,7 @@
         </div>
       </div>
     </div>
+    <!-- new modal -->
     <div class="modal fade" id="ModalForNewProject" role="dialog" title="Create new Project">
       <div class="modal-dialog">
         <fieldset>
@@ -190,7 +193,7 @@
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
               <div class="col-lg-offset-7 col-lg-2 cls-divbtn "> <input class="cls-savecancel" id="btnsave"
-                  type="button" onclick="update(uId);" value="Submit" /> </div>
+                  type="button" onclick="update(uId);" value="Update" data-dismiss="modal" /> </div>
               <div class="col-lg-2 col-lg-offset-1"> <input class="cls-savecancel" type="reset" value="Cancel"
                   id="btnCancel" data-dismiss="modal" /> </div>
             </div>

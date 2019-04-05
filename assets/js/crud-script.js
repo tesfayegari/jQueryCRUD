@@ -39,7 +39,7 @@ function createListItem() {
       var eBloodGroup = $('#txtbloodgrp').val("");
       var eComAddress = $('#txtaddress').val("");
       var eEmergency = $('#txtemergency').val("");
-      swal("Item created successfully", "success");
+      swal("Created","Item created successfully", "success");
 
       if ($.fn.DataTable.isDataTable('#subsiteList')) {
         $('#subsiteList').DataTable().destroy();
@@ -66,7 +66,7 @@ function getItems() {
       data = data.d.results;
       console.log(data);
       $.each(data, function (index, value) {
-        var html = "<tr><td>" + value.EmployeeName + "</td><td>" + value.Designation + "</td><td>" + value.Email + "</td><td>" + value.BloodGroup + "</td><td>" + value.CommunicationAddress + "</td><td>" + value.EmergencyContact + "</td><td>" + value.Mobile + "</td><td><a href='#' data-target='#ModalForUpdateEmployee' data-toggle='modal' onclick='edit(" + value.Id + ")'><img src='assets/images/003-edit-document.png'></a></td><td><a href='#' onclick='deleteItem(" + value.Id + ");'><img src='assets/images/001-delete.png'></a></td></tr>";
+        var html = "<tr><td>" + value.EmployeeName + "</td><td>" + value.Designation + "</td><td>" + value.Email + "</td><td>" + value.BloodGroup + "</td><td>" + value.CommunicationAddress + "</td><td>" + value.EmergencyContact + "</td><td>" + value.Mobile + "</td><td><a href='#' data-target='#ModalForUpdateEmployee' data-toggle='modal' onclick='edit(" + value.Id + ")'><img src='/sites/demo/SiteAssets/jQueryCRUD/assets/images/003-edit-document.png'></a></td><td><a href='#' onclick='deleteItem(" + value.Id + ");'><img src='/sites/demo/SiteAssets/jQueryCRUD/assets/images/001-delete.png'></a></td></tr>";
         $('.table tbody').append(html);
       });
       table = $('#subsiteList').DataTable();
@@ -95,7 +95,7 @@ function edit(value) {
       eMobile = $('#txtmobiles').val(data.d.Mobile);
       eBloodGroup = $('#txtbloodgrps').val(data.d.BloodGroup);
       eComAddress = $('#txtaddresss').val(data.d.CommunicationAddress);
-      eEmergency = $('#txtemergencys').val(data.d.EmergencyContact);
+      eEmergency = $('#txtemergencys').val(data.d.EmergencyContact);      
     },
     error: function (error) {
       console.log(JSON.stringify(error));
@@ -136,7 +136,7 @@ function update(uId) {
       "X-HTTP-Method": "MERGE"
     },
     success: function (data) {
-      swal("Item Updated successfully", "success");
+      swal("Updated","Item Updated successfully", "success");
       if ($.fn.DataTable.isDataTable('#subsiteList')) {
         $('#subsiteList').DataTable().destroy();
       }
@@ -150,27 +150,41 @@ function update(uId) {
 }
 
 function deleteItem(value) {
-  $.ajax({
-    url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/GetByTitle('Employee')/items(" + value + ")",
-    method: "POST",
-    headers: {
-      "accept": "application/json;odata=verbose",
-      "content-type": "application/json;odata=verbose",
-      "X-RequestDigest": $("#__REQUESTDIGEST").val(),
-      "IF-MATCH": "*",
-      "X-HTTP-Method": "DELETE"
-    },
-    success: function (data) {
-      swal("Deleted!", "Item Deleted successfully", "success");
-      if ($.fn.DataTable.isDataTable('#subsiteList')) {
-        $('#subsiteList').DataTable().destroy();
-      }
-      $('#subsiteList tbody').empty();
-      getItems();
-    },
-    error: function (error) {
-      console.log(JSON.stringify(error));
+  swal({
+    title: "Are you sure?",
+    text: "Once deleted, you will not be able to recover the item!",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      $.ajax({
+        url: _spPageContextInfo.webAbsoluteUrl + "/_api/web/lists/GetByTitle('Employee')/items(" + value + ")",
+        method: "POST",
+        headers: {
+          "accept": "application/json;odata=verbose",
+          "content-type": "application/json;odata=verbose",
+          "X-RequestDigest": $("#__REQUESTDIGEST").val(),
+          "IF-MATCH": "*",
+          "X-HTTP-Method": "DELETE"
+        },
+        success: function (data) {
+          swal("Deleted!", "Item Deleted successfully", "success");
+          if ($.fn.DataTable.isDataTable('#subsiteList')) {
+            $('#subsiteList').DataTable().destroy();
+          }
+          $('#subsiteList tbody').empty();
+          getItems();
+        },
+        error: function (error) {
+          console.log(JSON.stringify(error));
+        }
+      });
+    } else {
+      //swal("Your imaginary file is safe!");
     }
   });
+  
 
 }
